@@ -42,6 +42,6 @@ spec:
   selector:
     app: goldfish-api
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
 
 ---
