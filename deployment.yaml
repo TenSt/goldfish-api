@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goldfish-api
+  labels:
+    app: goldfish-api
+    version: "v1"
+  annotations:
+    version: "v1"
+  namespace: goldfish
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goldfish-api
+  template:
+    metadata: 
+      labels: 
+        app: goldfish-api
+    spec:
+      containers:
+      - name: goldfish-api
+        image: IMG
+        imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: "true"
+  labels:
+    component: goldfish-api
+  name: goldfish-api
+  namespace: goldfish
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: goldfish-api
+  sessionAffinity: None
+  type: ClusterIP
+
+---
