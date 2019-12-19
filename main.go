@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
 	"strconv"
 )
@@ -107,25 +108,15 @@ func predict(r request) string {
 	var res string
 	switch maxIndex {
 	case 0:
-		res = "40"
+		res = "39"
 	case 1:
-		res = "41"
+		res = "40"
 	case 2:
 		res = "42"
 	case 3:
-		res = "43"
-	case 4:
 		res = "44"
-	case 5:
-		res = "45"
-	case 6:
+	case 4:
 		res = "46"
-	case 7:
-		res = "47"
-	case 8:
-		res = "48"
-	case 9:
-		res = "49"
 	}
 	return res
 }
@@ -133,6 +124,7 @@ func predict(r request) string {
 func getBody(r request) []byte {
 	meteoST1, err := strconv.ParseFloat(r.MeteoST1, 64)
 	checkError("getBody: meteoST1 error parse:\n", err)
+	meteoST1 = math.Round(meteoST1)
 
 	meteoST2, err := strconv.ParseFloat(r.MeteoST2, 64)
 	checkError("getBody: meteoST2 error parse:\n", err)
